@@ -34,7 +34,6 @@ class LinkedList {
   //remove item
   remove(item) {
     if(!this.head) {
-      console.log('empty');
       return null;
     }
     if (this.head.data === item) {
@@ -49,7 +48,6 @@ class LinkedList {
       current = current.next;
     }
     if (current == null) {
-      console.log('item not found');
       return;
     }
     previous.next = current.next;
@@ -102,7 +100,6 @@ class LinkedList {
     }
     while (current) {
       if (current.next.data === key) {
-        console.log(current.data);
         return current;
       } else {
         current = current.next;
@@ -130,7 +127,6 @@ class LinkedList {
       count++;
       current = current.next;
     }
-    console.log(count);
     return count;
   }
   // is List Empty?
@@ -161,24 +157,13 @@ class LinkedList {
     return third;
   }
   // Reverse List
-  reverseList(number) {
-    let count;
-    if (number == 'list') {
-      count = this.listSize();
-    } else { 
-      count = number;
-      console.log(count);
-    }
-    if (count == 0) {
-      console.log('done');
-      this.printListData();
-      return;
-    }
-    let last = this.findLast();
-    let newLast = this.findPrevious(last.data);
-    newLast.next = 'undefined';
-    this.insertFirst(last);
-    this.reverseList(count -1);
+  reverseList(head) {
+   
+    let tmp = this.reverseList(head.next); 
+    console.log(head.next);
+    head.next.next = head;
+    head.next = undefined;   
+    return tmp;
   }
   // Print list data
   printListData() {
@@ -198,34 +183,10 @@ function main() {
   SLL.insertFirst('Boomer');
   SLL.insertFirst('Helo');
   SLL.insertFirst('Husker');
-  SLL.insertFirst('Boomer');
   SLL.insertFirst('Starbuck');
   SLL.insertFirst('Monkey');
-  // Add Tauhida to the list
   SLL.insertLast('Tauhida');
- 
-  SLL.reverseList('list');
-  return SLL;
+  SLL.printListData();
 }
-function WhatDoesThisProgramDo(lst) {
-  let current = lst.head;
-  while (current) {
-    console.log(current.data, 'first while');
-    let newNode = current;
-    while (newNode.next) {
-      console.log('2nd while', newNode.next.data);
-      if (newNode.next.data === current.data) {
-        console.log('*****new node***', newNode.next.data);
-        newNode.next = newNode.next.next;
-      }
-      else {
-        newNode = newNode.next;
-      }
-    }
-    current = current.next;
-  }
-  console.log('------');
-  lst.printListData();
-}
+
 main();
-// WhatDoesThisProgramDo(main());
